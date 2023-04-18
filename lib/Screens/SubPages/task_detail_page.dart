@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -31,7 +29,8 @@ class _TaskDetailPage extends State<TaskDetailPage> {
   late Color colour;
   late String Description;
   late String goals;
-
+  late String priority;
+  late int id;
   Map<String, int> goals2 = {};
 
   List<String> g = [];
@@ -48,7 +47,9 @@ class _TaskDetailPage extends State<TaskDetailPage> {
     colour = widget.task?.colour ?? Color.fromRGBO(0, 0, 0, 1.0);
     startTime = widget.task?.startTime ?? TimeOfDay(hour: 0, minute: 0);
     goals = widget.task?.goals ?? '';
-    print(goals);
+    priority=widget.task?.priority??'';
+    print(priority+"Hello");
+    print(goals+"Debug");
     convertGoals();
   }
 
@@ -167,7 +168,7 @@ class _TaskDetailPage extends State<TaskDetailPage> {
         radius: Radius.circular(20),
         thickness: 5,
         interactive: true,
-        isAlwaysShown: false,
+        thumbVisibility: false,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: ConstrainedBox(
@@ -175,12 +176,16 @@ class _TaskDetailPage extends State<TaskDetailPage> {
             child: Container(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
                     ReusableCardCalendar(
+                      onlongpress: (){},
                       TaskName: TaskName,
                       Category: Category,
                       startTime: startTime ,
                       colour: colour,
+                      priority: priority,
+                      id:id,
                       onPress: () {  },
                     ),
                    /* Padding(
@@ -212,10 +217,22 @@ class _TaskDetailPage extends State<TaskDetailPage> {
                       child: Text(
                         Description,
                         style: TextStyle(
-                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                          color: Color.fromRGBO(11, 10, 10, 0.498),
                           fontSize: 18,
                         ),
                       ),
+                    ),
+                    
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        'Priority',
+                        style: kTagLabelTextStyle2,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Text(widget.task!.priority),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -228,11 +245,11 @@ class _TaskDetailPage extends State<TaskDetailPage> {
                       child: Padding(
                         padding: const EdgeInsets.only(right: 10.0),
                         child: RawScrollbar(
-                          thumbColor: colour,
+                          thumbColor: Colors.red,
                           radius: Radius.circular(20),
                           thickness: 5,
                           interactive: true,
-                          isAlwaysShown: false,
+                          thumbVisibility: false,
                           child: ListView.builder(
                             physics: BouncingScrollPhysics(),
                             padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -263,7 +280,8 @@ class _TaskDetailPage extends State<TaskDetailPage> {
                         ),
                       ),
                     ),
-                  ]
+                    
+                  ],
               ),
             ),
           ),

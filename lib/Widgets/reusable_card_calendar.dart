@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hci_project/Services/Task_Database.dart';
 import 'package:hci_project/constants.dart';
-import 'package:intl/intl.dart';
 
 class ReusableCardCalendar extends StatelessWidget {
   ReusableCardCalendar({required this.Category,required this.TaskName
-    ,required this.startTime,required this.colour, required this.onPress});
-
+    ,required this.startTime,required this.colour, required this.onPress, required this.priority, required this.id, required this.onlongpress});
+  final int? id;
   final String Category;
   final String TaskName;
   final TimeOfDay startTime;
   final Color colour;
   final VoidCallback onPress;
-
+  final String priority;
+  final VoidCallback onlongpress;
   String fixTime(TimeOfDay timeStart){
     String fixHrStart = timeStart.hour.toString();
     String fixMinStart = timeStart.minute.toString();
@@ -27,11 +28,13 @@ class ReusableCardCalendar extends StatelessWidget {
 
     return fixedTime;
   }
-
+  
   @override
   Widget build(BuildContext context) {
+    
     return GestureDetector(
       onTap:onPress,
+      onLongPress:onlongpress,
       child: Container(
         margin: EdgeInsets.only(bottom: 10.0),
         padding: EdgeInsets.fromLTRB(0, 20.0, 20.0, 10.0),
@@ -50,7 +53,7 @@ class ReusableCardCalendar extends StatelessWidget {
               width: 8.0,
               margin: EdgeInsets.fromLTRB(0, 6.0, 0, 6.0),
               decoration: BoxDecoration(
-                color: colour,
+                color: priority=="High"?Colors.red:priority=="Medium"?Colors.yellow:Colors.green,
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
@@ -101,9 +104,13 @@ class ReusableCardCalendar extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(width: 100,),
+            
           ],
         ),
       ),
     );
   }
+  
+  
 }

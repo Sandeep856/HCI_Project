@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:hci_project/Models/Task.dart';
 import 'package:hci_project/Screens/SubPages/TaskInputScreen.dart';
 import 'package:hci_project/Screens/SubPages/task_detail_page.dart';
@@ -8,12 +7,10 @@ import 'package:hci_project/Services/Task_Database.dart';
 import 'package:hci_project/Widgets/reusable_card_calendar.dart';
 import 'package:hci_project/constants.dart';
 
-import 'dart:convert';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:flutter/services.dart';
+
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -64,6 +61,31 @@ class _Calendar extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
+    void _showDeleteOrNavigateDialog(int index) {
+    showDialog(context: context, builder:(BuildContext context){
+          return AlertDialog(
+            title: Text("Tap to list your goals or delete the task"),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () async{
+                  await TaskDatabase.instance.delete(tasks[index].id?? 0);
+                  refreshTask();
+                  Navigator.pop(context);
+                },
+
+              ),
+
+              IconButton(
+                icon: Icon(Icons.cancel),
+                onPressed: (){
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+    });
+  }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -144,13 +166,17 @@ class _Calendar extends State<Calendar> {
                         radius: Radius.circular(20),
                         thickness: 5,
                         interactive: true,
-                        isAlwaysShown: false,
+                        thumbVisibility: false,
                         child: ListView.builder(
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: tasks.length,
                           itemBuilder: (context, index){
                             return ReusableCardCalendar(
+                               onlongpress:() async {
+                                  _showDeleteOrNavigateDialog(index);
+                                  
+                               } ,
                                 onPress: (){
                                   Navigator.push(context,
                                     MaterialPageRoute(
@@ -164,7 +190,9 @@ class _Calendar extends State<Calendar> {
                                 TaskName: tasks[index].TaskName,
                                 Category: tasks[index].Category,
                                 startTime: tasks[index].startTime ,
-                                colour: tasks[index].colour
+                                colour: tasks[index].colour,
+                                priority: tasks[index].priority,
+                                id:tasks[index].id,
                             );
                           },
                         ),

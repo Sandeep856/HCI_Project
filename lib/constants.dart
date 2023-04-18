@@ -119,7 +119,11 @@ const kTagLabelTextStyle2 = TextStyle(
   letterSpacing: 1.0,
   fontWeight: FontWeight.bold,
 );
-
+ const boldheading = TextStyle(
+    fontSize: 22.0,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+  );
 const kTagDateStyle = TextStyle(
   fontSize: 15.0,
   color: kTagDateColour,

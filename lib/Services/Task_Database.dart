@@ -3,9 +3,6 @@ import 'dart:async';
 import 'package:hci_project/Models/Task.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class TaskDatabase{
   static final TaskDatabase instance = TaskDatabase._init();
@@ -43,7 +40,8 @@ class TaskDatabase{
       ${TaskField.colour} $intType,
       ${TaskField.startTime} $intType,
       ${TaskField.startTimeMin} $intType,
-      ${TaskField.goals} $stringType
+      ${TaskField.goals} $stringType,
+      ${TaskField.priority} $stringType
       )
     ''');
 
@@ -74,7 +72,7 @@ class TaskDatabase{
   Future<List<Task>> readDateTask(String date) async{
     final db = await instance.database;
 
-    final orderBy = ' ${TaskField.taskDate} ASC';
+    //final orderBy = ' ${TaskField.taskDate} ASC';
     final results = await db.query(
       tableTask,
       columns: TaskField.values,

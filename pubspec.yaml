@@ -21,13 +21,29 @@ dependencies:
   rflutter_alert: ^2.0.4
   flutter_hsvcolor_picker: ^1.2.1
   sqflite: ^2.0.0+4
-  syncfusion_flutter_datepicker: ^19.3.55
+  syncfusion_flutter_datepicker: ^21.1.39
   carousel_slider: ^4.0.0
   flutter_staggered_grid_view: ^0.4.0-nullsafety.3
   animations: ^2.0.2
-  percent_indicator: ^2.1.9
-  flutter_local_notifications: ^1.4.4+2
+  percent_indicator: ^4.2.3
+  flutter_local_notifications: ^13.0.0
   pedometer: ^3.0.0
+  shared_preferences: ^2.1.0
+  syncfusion_flutter_gauges: ^21.1.39
+  cloud_firestore: ^4.5.1
+  firebase_auth: ^4.4.1
+  firebase_core: ^2.9.0
+  hive: ^2.2.3
+  google_sign_in: ^6.1.0
+  google_fonts: ^4.0.3
+  sensors_plus: ^2.0.3
+  get: ^4.6.5
+  hexcolor: ^3.0.1
+  sensors: ^2.0.3
+  permission_handler: ^10.2.0
+  timezone: ^0.9.1
+
+
 
 dev_dependencies:
   flutter_test:
@@ -41,3 +57,4 @@ flutter:
 
   assets:
     - assets/Images/
+    - assets/

@@ -1,9 +1,9 @@
-// @dart=2.9
+
 import 'package:flutter/cupertino.dart';
 
 class TaskGoal {
-  String Description;
-  bool status;
+  String Description="";
+  bool status=false;
 
   TaskGoal(String Description, bool status) {
 

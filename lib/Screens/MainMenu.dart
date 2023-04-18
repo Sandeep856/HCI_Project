@@ -26,7 +26,8 @@ class _MainMenuState extends State<MainMenu> {
   int pageIndex = 1;
   List<Widget> pagelist = <Widget>[
     //Home(),
-    Fit(),
+    //dashboard(),
+    MyHomePage(title: '',),
     Notes(),
     Calendar(),
     Pomodoro(),

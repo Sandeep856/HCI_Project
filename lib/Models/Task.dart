@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'TaskGoal.dart';
 
 final String tableTask = 'tasks';
 
 class TaskField{
   static final List<String> values = [
-    id, taskDate, category, taskName, description, colour, startTime,startTimeMin, goals
+    id, taskDate, category, taskName, description, colour, startTime,startTimeMin, goals, priority
   ];
 
   static final String id = '_id';
@@ -20,6 +18,7 @@ class TaskField{
   //static final String endTime = 'endTime';
   //static final String endTimeMin = 'endTimeMin';
   static final String goals = 'goals';
+  static final String priority='priority';
 
 }
 
@@ -31,9 +30,9 @@ class Task {
   final String Description;
   final Color colour;
   final TimeOfDay startTime;
-  //final TimeOfDay endTime;
   final String goals;
-
+  final String priority;
+  //final TimeOfDay endTime;
   const Task({
     this.id,
     required this.taskDate,
@@ -42,8 +41,10 @@ class Task {
     required this.Description,
     required this.colour,
     required this.startTime,
-    //required this.endTime,
+  
     required this.goals,
+    required this.priority
+      //required this.endTime,
   });
 
   static Task fromJson(Map<String, Object?> json) => Task(
@@ -54,8 +55,9 @@ class Task {
     Description:json["description"] as String,
     colour: Color(json["color"] as int),
     startTime:  TimeOfDay(hour: json["startTime"] as int, minute: json["startTimeMin"] as int),
-    //endTime:  TimeOfDay(hour: json["endTime"] as int, minute: json["endTimeMin"] as int),
-    goals: json["goals"] as String,
+    goals: json["goals"] as String, 
+    priority: json["priority"] as String,
+     //endTime:  TimeOfDay(hour: json["endTime"] as int, minute: json["endTimeMin"] as int),
   );
 
 
@@ -68,9 +70,11 @@ class Task {
     "color": colour.value,
     "startTime": startTime.hour,
     "startTimeMin": startTime.minute,
+    "goals": goals,
+    "priority":priority,
     //"endTime": endTime.hour,
     //"endTimeMin": endTime.minute,
-    "goals": goals
+   
   };
 
   Task copy({
@@ -81,8 +85,9 @@ class Task {
     String? Description,
     Color? colour,
     TimeOfDay? startDate,
-    //TimeOfDay? endDate,
     String? goals,
+    String? priority,
+    //TimeOfDay? endDate,
 
   }) =>
     Task(
@@ -93,7 +98,9 @@ class Task {
       Description: Description ?? this.Description,
       colour: colour ?? this.colour,
       startTime: startDate ?? this.startTime,
-      //endTime: endDate ?? this.endTime,
       goals: goals ?? this.goals,
+      priority: priority ?? this.priority,
+      //endTime: endDate ?? this.endTime,
+      
     );
 }
