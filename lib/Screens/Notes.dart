@@ -34,7 +34,7 @@ class _Notes extends State<Notes> {
   Future refreshNotes() async {
     setState(() => isLoading = true);
 
-    this.notes = await NotesDatabase.instance.readAllNotes() as List<Note>;
+    this.notes = await NotesDatabase.instance.readAllNotes();
 
     setState(() => isLoading = false);
   }

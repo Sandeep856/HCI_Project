@@ -1,8 +1,5 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hci_project/Models/pomodoro_status.dart';
-import 'package:hci_project/Services/ad_helper.dart';
 import 'package:hci_project/Widgets/custom_button.dart';
 import 'package:hci_project/Widgets/progress_icons.dart';
 import 'package:hci_project/constants.dart';
@@ -13,7 +10,6 @@ import 'dart:async';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:google_mobile_ads/google_mobile_ads.dart';
 

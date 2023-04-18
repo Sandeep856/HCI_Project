@@ -40,8 +40,6 @@ class _TaskInputScreen extends State<TaskInputScreen> {
 
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
-  final _formKey1 = GlobalKey<FormState>();
-  final _formKey21 = GlobalKey<FormState>();
 
   final validCharacters = RegExp(r'^[a-zA-Z0-9_\-=@\. ]+$');
 

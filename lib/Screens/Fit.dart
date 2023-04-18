@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
       calories=_steps*0.05;
       distance =_steps/10000;
       _points=_steps/100;
-      DateTime timeStamp = event.timeStamp;
+      //DateTime timeStamp = event.timeStamp;
     });
    
   }

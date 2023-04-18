@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hci_project/Services/ad_helper.dart';
 import 'package:hci_project/Widgets/reusable_card_task_display.dart';
 import 'package:hci_project/constants.dart';
-
-import 'dart:convert';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 
 
@@ -22,7 +15,7 @@ class _Home extends State<Home> {
 
  
   // TODO: Add _isBannerAdReady
-  bool _isBannerAdReady = false;
+  //bool _isBannerAdReady = false;
 
   int work = 25;
   int shortBreak = 5;

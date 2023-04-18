@@ -11,7 +11,6 @@ import 'package:hci_project/Screens/Calendar.dart';
 import 'package:hci_project/Screens/Fit.dart';
 import 'package:hci_project/Screens/Notes.dart';
 import 'package:hci_project/Screens/Pomodoro.dart';
-import 'package:hci_project/Services/ad_helper.dart';
 import 'package:hci_project/constants.dart';
 
 
@@ -36,7 +35,7 @@ class _MainMenuState extends State<MainMenu> {
   
 
   // TODO: Add _isBannerAdReady
-  bool _isBannerAdReady = false;
+  //bool _isBannerAdReady = false;
 
   @override
   void initState() {
