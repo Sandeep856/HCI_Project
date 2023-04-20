@@ -706,3 +706,8 @@ class StateStepsPage extends State<StepsPage> with WidgetsBindingObserver {
   // );
   // await BackgroundFetch.start();
   //startForegroundService();
+
+
+  // void startForegroundService() async {
+//   ForegroundService().start();
+// }

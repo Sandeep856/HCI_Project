@@ -14,6 +14,7 @@ import 'package:hci_project/Screens/Pomodoro.dart';
 import 'package:hci_project/constants.dart';
 
 
+// ignore: must_be_immutable
 class MainMenu extends StatefulWidget {
     MainMenu({this.pageIndex1});
   int? pageIndex1;
@@ -26,7 +27,7 @@ class _MainMenuState extends State<MainMenu> {
   List<Widget> pagelist = <Widget>[
     //Home(),
     //dashboard(),
-    MyHomePage(title: '',),
+    MyHomePage(title: "Fit"),
     Notes(),
     Calendar(),
     Pomodoro(),

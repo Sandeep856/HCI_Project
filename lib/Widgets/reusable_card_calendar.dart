@@ -49,7 +49,7 @@ class ReusableCardCalendar extends StatelessWidget {
           children: [
             Container(
               height:100,
-              width: 8.0,
+              width: 15,
               margin: EdgeInsets.fromLTRB(0, 6.0, 0, 6.0),
               decoration: BoxDecoration(
                 color: priority=="High"?Colors.red:priority=="Medium"?Colors.yellow:Colors.green,

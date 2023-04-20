@@ -644,4 +644,3 @@ class _FadingWidgetState extends State<FadingWidget> with SingleTickerProviderSt
     return AnimatedOpacity(opacity: _tween.value, duration: widget.duration, child: widget.child);
   }
 }
-

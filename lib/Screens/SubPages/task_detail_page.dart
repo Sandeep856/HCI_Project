@@ -48,6 +48,7 @@ class _TaskDetailPage extends State<TaskDetailPage> {
     startTime = widget.task?.startTime ?? TimeOfDay(hour: 0, minute: 0);
     goals = widget.task?.goals ?? '';
     priority=widget.task?.priority??'';
+    id=widget.task?.id??1;
     print(priority+"Hello");
     print(goals+"Debug");
     convertGoals();

@@ -461,54 +461,138 @@ class _TaskInputScreen extends State<TaskInputScreen> {
                         ),
                         ),
                       ),
-                      RadioListTile(
-                        selected: true,
-                         title:Text("High",style:TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 0, 0, 0.4),
-                        )),
-                        value: "High", 
-                        groupValue: groupValue, 
-                        onChanged:(value)
-                        {
-                      setState(() {
-                        groupValue=value as String;
-                        priority=value;
-                      });
-                        }),
-                      RadioListTile(
-                         title:Text("Medium",style:TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 0, 0, 0.4),
-                        )),
-                        value: "Medium", 
-                        toggleable: true,
-                        groupValue: groupValue, 
-                        onChanged:(value)
-                        {
-                      setState(() {
-                        groupValue=value as String;
-                        priority=value;
-                      });
-                        }),
-                      RadioListTile(
-                        selectedTileColor:Colors.blue,
-                        autofocus: true,
-                        title:Text("Low",style:TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromRGBO(0, 0, 0, 0.4),
-                        )),
-                        value: "Low", 
-                        groupValue: groupValue, 
-                        onChanged:(value)
-                        {
-                      setState(() {
-                        groupValue=value as String ;
-                        priority=value;
-                      });
-                        }),
-                      
+                      // RadioListTile(
+                      //   selected: true,
+                      //    title:Text("High",style:TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Color.fromRGBO(0, 0, 0, 0.4),
+                      //   )),
+                      //   value: "High", 
+                      //   groupValue: groupValue, 
+                      //   onChanged:(value)
+                      //   {
+                      // setState(() {
+                      //   groupValue=value as String;
+                      //   priority=value;
+                      // });
+                      //   }),
+                      // RadioListTile(
+                      //    title:Text("Medium",style:TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Color.fromRGBO(0, 0, 0, 0.4),
+                      //   )),
+                      //   value: "Medium", 
+                      //   toggleable: true,
+                      //   groupValue: groupValue, 
+                      //   onChanged:(value)
+                      //   {
+                      // setState(() {
+                      //   groupValue=value as String;
+                      //   priority=value;
+                      // });
+                      //   }),
+                      // RadioListTile(
+                      //   selectedTileColor:Colors.blue,
+                      //   autofocus: true,
+                      //   title:Text("Low",style:TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Color.fromRGBO(0, 0, 0, 0.4),
+                      //   )),
+                      //   value: "Low", 
+                      //   groupValue: groupValue, 
+                      //   onChanged:(value)
+                      //   {
+                      // setState(() {
+                      //   groupValue=value as String ;
+                      //   priority=value;
+                      // });
+                      //   }),
+                    SizedBox(height: 20,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints.expand(height: 30, width: MediaQuery.of(context).size.width),
+                        child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        children: [
+                          GestureDetector(
+                            onTap: ()
+                            {
+                                 setState(() {
+                                   priority="High";
+                                 });
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 70,
+                              decoration: BoxDecoration(
 
+                                border: Border.all(),
+                                color: priority=="High"?Colors.red:Colors.transparent,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(child: Text("High",
+                              style: TextStyle(
+                                color: priority=="High"?Colors.white:Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              )),
+                            ),
+                          ),
+                              SizedBox(width: 50,),
+                             GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  priority="Medium";
+                                });
+                              },
+                               child: Container(
+                                                         height: 40,
+                                                         width: 70,
+                                                         decoration: BoxDecoration(
+                                border: Border.all(),
+                                color: priority=="Medium"?Colors.yellow:Colors.transparent,
+                                borderRadius: BorderRadius.circular(15),
+                                                         ),
+                                                         child: Center(child: Text("Medium",
+                                                         style: TextStyle(
+                                color: priority=="Medium"?Colors.white:Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                                         ),
+                                                         )),
+                                                       ),
+                             ),
+                          SizedBox(width: 50,),
+                          GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                priority="Low";
+                              });
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                border: Border.all(),
+                                color: priority=="Low"?Colors.green:Colors.transparent,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(child: Text("Low",
+                              style: TextStyle(
+                                color: priority=="Low"?Colors.white:Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              )),
+                            ),
+                          ),
+                        ],
+                                            ),
+                      ),
+                    ),
                       
                       Padding(
                         padding: const EdgeInsets.all(10.0),

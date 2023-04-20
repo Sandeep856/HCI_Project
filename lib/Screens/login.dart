@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
-import 'package:hci_project/Screens/MainMenu.dart';
+import 'package:hci_project/Screens/LandingPage.dart';
 import 'package:hci_project/Screens/register.dart';
 
 class LoginPage extends StatefulWidget {
@@ -42,8 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     if (_userLoggedIn != null) {
       _alertDialogBuilder(_userLoggedIn);
     } else {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MainMenu()));
+      LandingPage();
     }
   }
   //sign in function

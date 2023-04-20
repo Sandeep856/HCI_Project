@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hci_project/Screens/LandingPage.dart';
+import 'package:hci_project/Screens/MainMenu.dart';
+import 'package:hci_project/Screens/Onboarding.dart';
 import 'package:hci_project/Widgets/button.dart';
 import 'package:hci_project/Widgets/custom_input.dart';
 
@@ -14,7 +18,8 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   bool _registerFormLoading = false;
-
+  final CollectionReference users=FirebaseFirestore.instance.collection("Users");
+ 
   void _submit() async {
     String? _createAccountFeedback = await createAccount();
     setState(() {
@@ -27,7 +32,16 @@ class _AccountState extends State<Account> {
         _registerFormLoading = false;
       });
     } else {
-      Navigator.pop(context);
+      
+      Future<int> result=LandingPage.checkUser();
+      if(result==0)
+      {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>MainMenu()));
+      }
+      else
+      {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>OnboardingScreen()));
+      }
     }
   }
 
@@ -132,13 +146,14 @@ class _AccountState extends State<Account> {
                   GestureDetector(
                     onTap: () {
                       _submit();
+                      
                     },
                     child: Button(
                       loadingState: _registerFormLoading,
                       text: 'Create Account',
                       outline: true,
                     ),
-                  )
+                  ),
                 ],
               ),
               Padding(
