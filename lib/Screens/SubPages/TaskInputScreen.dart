@@ -218,7 +218,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text(
             'Date: ' +

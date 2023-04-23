@@ -29,6 +29,8 @@ class Input extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: TextField(
+        cursorHeight: 25,
+        cursorColor: Colors.blue,
         obscureText: isPasswordField,
         onSubmitted: onSubmitted,
         onChanged: onChanged,

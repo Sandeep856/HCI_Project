@@ -26,7 +26,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   DateTime? _exerciseTiming;
   String _exercise="Yes";
   bool _exercise_status=true;
-  final List<Hostel> _hostels = [    Hostel(name: 'Hostel A'),    Hostel(name: 'Hostel B'),    Hostel(name: 'Hostel C'),    Hostel(name: 'Hostel D'),    Hostel(name: 'Hostel E'),  ];
+  final List<Hostel> _hostels = [    Hostel(name: 'AH1'),    Hostel(name: 'AH2'),    Hostel(name: 'AH3'),    Hostel(name: 'AH4'),    Hostel(name: 'AH5'),  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Container(
           decoration: BoxDecoration(
             image:DecorationImage(image: AssetImage("assets/Images/onb.jpg"),
-            fit: BoxFit.cover,
-            opacity: 0.3
+            fit: BoxFit.contain,
             ),
           ),
           padding: EdgeInsets.all(20.0),
@@ -46,11 +45,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Welcome to Task.ly',
-                  style: TextStyle(
-                    fontSize: 28.0,
-                    fontWeight: FontWeight.bold,
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Text(
+                      'Welcome!!',
+                      style: TextStyle(
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(height: 10,),
@@ -72,99 +76,146 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   ),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Enter your first name',
-                    labelStyle: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                    labelText: 'First Name',
+                SizedBox(height: 30,),
+                Container(
+                  padding: EdgeInsets.only(left: 20),
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+
+                    color: Colors.grey[200],
+                    border: Border.all(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your first name';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _firstName = value!;
-                  },
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Enter your last name',
-                    labelStyle: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                    labelText: 'Last Name',
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Enter your first name',
+                      labelStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your last name';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _lastName = value!;
-                  },
-                ),
-                SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Enter your age',
-                    labelStyle: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                    labelText: 'Age',
+                      labelText: 'First Name',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your first name';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _firstName = value!;
+                    },
                   ),
-                  keyboardType: TextInputType.number,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your age';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _age = int.parse(value!);
-                  },
                 ),
-                SizedBox(height: 10.0),
-                DropdownButtonFormField<Hostel>(
-                  decoration: InputDecoration(
-                    hintText: 'Select your hostel',
-                    labelStyle: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                    labelText: 'Hostel',
+                SizedBox(height: 30.0),
+                Container(
+                  padding: EdgeInsets.only(left: 20),
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    border: Border.all(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                  items: _hostels.map((hostel) {
-                    return DropdownMenuItem<Hostel>(
-                      value: hostel,
-                      child: Text(hostel.name),
-                    );
-                  }).toList(),
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Please select your hostel';
-                    }
-                    return null;
-                  },
-                  onChanged:(value) {
-                setState(() {
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Enter your last name',
+                      labelStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                      labelText: 'Last Name',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your last name';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _lastName = value!;
+                    },
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                Container(
+                       padding: EdgeInsets.only(left: 20),
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    border: Border.all(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Enter your age',
+                      labelStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                      labelText: 'Age',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your age';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _age = int.parse(value!);
+                    },
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                Container(
+                       padding: EdgeInsets.only(left: 20),
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    border: Border.all(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: DropdownButtonFormField<Hostel>(
+                    decoration: InputDecoration(
+                      hintText: 'Select your hostel',
+                      labelStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                      labelText: 'Hostel',
+                    ),
+                    items: _hostels.map((hostel) {
+                      return DropdownMenuItem<Hostel>(
+                        value: hostel,
+                        child: Text(hostel.name),
+                      );
+                    }).toList(),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please select your hostel';
+                      }
+                      return null;
+                    },
+                    onChanged:(value) {
+                  setState(() {
+                    _selectedHostel = value;
+                  });
+                              },
+                              onSaved: (value) {
                   _selectedHostel = value;
-                });
-              },
-              onSaved: (value) {
-                _selectedHostel = value;
-              },
-              value: _selectedHostel,
-            ),
-            SizedBox(height: 10.0),
+                              },
+                              value: _selectedHostel,
+                            ),
+                ),
+            SizedBox(height: 80.0),
             Text(
               'Meal Timings',
               style: TextStyle(
@@ -362,7 +413,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     "Age":_age,
                     "Hostel":_selectedHostel==null?"NULL":_selectedHostel!.name,
                     "Exercise_status": _exercise_status.toString(),
-                    "Exercisetimings": _exerciseTiming!.hour.toString()+_exerciseTiming!.minute.toString(),
+                    "Exercisetimings":_exerciseTiming!=null? _exerciseTiming!.hour.toString()+_exerciseTiming!.minute.toString():"NULL",
                   };
                   users.doc(uid).set(info);
                   print("Hurray");

@@ -102,22 +102,26 @@ class _AccountState extends State<Account> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.amber[100],
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/Images/Register.jpg"),
+          fit: BoxFit.fill
+        ),
+      ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Set Up your Account"),
+          backgroundColor:Color.fromARGB(255, 214, 170, 255),
+        ),
+        backgroundColor: Colors.transparent,
+        body: SingleChildScrollView(
+          padding: EdgeInsets.only(top: 120),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                padding: EdgeInsets.only(top: 24.0),
-                child: Text(
-                  'Create a new Account',
-                  textAlign: TextAlign.center,
-                  style: boldheading,
-                ),
-              ),
+         
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -143,6 +147,7 @@ class _AccountState extends State<Account> {
                     textInputAction: TextInputAction.done,
                     isPasswordField: true,
                   ),
+                  SizedBox(height: 120,),
                   GestureDetector(
                     onTap: () {
                       _submit();

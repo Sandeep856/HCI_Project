@@ -1,9 +1,12 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/timezone.dart' as tz;
@@ -20,9 +23,9 @@ List<double> secondsToHoursAndMinutes(double convert) {
   return values;
 }
 
-final GlobalKey<_MyHomePageState> _homePageKey = GlobalKey<_MyHomePageState>();
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-final GlobalKey _statsKey = GlobalKey();
+// final GlobalKey<_MyHomePageState> _homePageKey = GlobalKey<_MyHomePageState>();
+//final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+//final GlobalKey _statsKey = GlobalKey();
 
 class MyHomePage extends StatefulWidget {
    MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -41,8 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
   double activeTimeInSeconds = 0;
   double _points=10;
   int stepCount = rand.nextInt(2500) + 5000;
-  int _steps=100;
-  int goalSteps = 100000;
+  int _steps=2000;
+  int goalSteps = 10000;
   late StreamSubscription<int>? _subscription;
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
@@ -50,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double distance = 0;
   bool _isStoringData = false;
   bool _isResettingSteps = false;
-
+  final String uid=FirebaseAuth.instance.currentUser!.uid;
   late Timer _timer;
   late DateTime _endOfDay;
   
@@ -113,13 +116,13 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _steps = newValue;
       calories=_steps*0.05;
-      distance =_steps/10000;
+      distance =_steps/1000;
       _points=_steps/100;
       //DateTime timeStamp = event.timeStamp;
     });
    
   }
-  final String uid=FirebaseAuth.instance.currentUser!.uid;
+
 
 
   void _loadSavedValue() async {
@@ -193,104 +196,193 @@ class _MyHomePageState extends State<MyHomePage> {
     initPlatformState();
   }
 
-  
-  
+  final CollectionReference Goals=FirebaseFirestore.instance.collection("Goals");
  @override
   Widget build(BuildContext context) {
     double circularThingySize = min(MediaQuery.of(context).size.width, 320);
 
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: AppDrawer(),
-      drawerEdgeDragWidth: MediaQuery.of(context).size.width,
-      appBar: AppBar(
-          leading: Container(
-            width: 200,
-            child: Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      _scaffoldKey.currentState?.openDrawer();
-                    },
-                    icon: const Icon(
-                      Icons.menu_outlined,
-                      color: Colors.grey,
-                    )),
-              ],
-            ),
-          )),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 35,
-            ),
-            Center(
-              child: FittedBox(
-                child: Row(
-                  children: [
-                    const SizedBox(
-                      width: 16,
+    return Container(
+      decoration:BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/Images/fit.jpg"),
+          opacity: 0.2
+        )
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        //key: _scaffoldKey,
+                drawer:Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                      ),
+                      child: Text(
+                        'Drawer Header',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                        ),
+                      ),
                     ),
-                    StatsDisplay(
-                        key: _statsKey,
-                        topText: "Calories",
-                        bottomText: "{0}",
-                        values: [calories],
-                        color: Colors.orangeAccent,
-                        delay: const Duration(milliseconds: 700), decimalDigits: 1,),
-                    StatsDisplay(
-                      topText: "Points",
-                      bottomText: "{0}",
-                      values: [_points],
-                      color: Colors.blue,
-                      delay: const Duration(milliseconds: 1100), decimalDigits: 1,
+                    ListTile(
+                      leading: Icon(Icons.home),
+                      title: Text('Home'),
+                      onTap: () {
+                        // Update the UI
+                      },
                     ),
-                    StatsDisplay(
-                      topText: "Distance",
-                      bottomText: "{0} km",
-                      values: [distance],
-                      color: Colors.green,
-                      decimalDigits: 1,
-                      delay: const Duration(milliseconds: 1500),
-                    ),
-                    const SizedBox(
-                      width: 16,
+                    ListTile(
+                      leading: Icon(Icons.settings),
+                      title: Text('Settings'),
+                      onTap: () {
+                        // Update the UI
+                      },
                     ),
                   ],
                 ),
               ),
+    
+        drawerEdgeDragWidth: MediaQuery.of(context).size.width,
+        appBar: AppBar(
+            elevation: 2,
+            backgroundColor: Color.fromARGB(255, 212, 143, 255),
+            shadowColor: Colors.greenAccent,
+            title:Text("Your Activity Tracker",
+            style: TextStyle(
+              fontFamily: GoogleFonts.abel().toString(),
             ),
-            const SizedBox(
-              height: 60,
             ),
-
-            StepCounterRadial(
-                stepCount: _steps,
-                maxSteps: goalSteps,
-                circularThingySize: circularThingySize,
-                delay: const Duration(milliseconds: 4000),
-                strokeSize: 20),
-
-            SizedBox(height: 20,),
-            Row(
-              children: [Padding(
-                padding: EdgeInsets.fromLTRB(300,40,0,0,),
-                child: FloatingActionButton(
-                  child:Icon(Icons.add,size: 40,),
-
-                  onPressed:(){
-                    
-                  },)
+            leading: Container(
+              width: 200,
+              child: Row(
+                children: [
+                  // IconButton(
+                  //     onPressed: () {
+                        
+                  //     },
+                  //     icon: const Icon(
+                  //       Icons.menu_outlined,
+                  //       color: Colors.grey,
+                  //     )),
+                ],
               ),
-              ]
-            )
-          ],
+            )),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 35,
+              ),
+              Center(
+                child: FittedBox(
+                  child: Row(
+                    children: [
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      StatsDisplay(
+                          //key: _statsKey,
+                          topText: "Calories",
+                          bottomText: "{0}",
+                          values: [140],
+                          color: Colors.orangeAccent,
+                          delay: const Duration(milliseconds: 700), decimalDigits: 1,),
+                      StatsDisplay(
+                        topText: "Points",
+                        bottomText: "{0}",
+                        values: [_points],
+                        color: Colors.blue,
+                        delay: const Duration(milliseconds: 1100), decimalDigits: 1,
+                      ),
+                      StatsDisplay(
+                        topText: "Distance",
+                        bottomText: "{0} km",
+                        values: [1.6],
+                        color: Colors.green,
+                        decimalDigits: 1,
+                        delay: const Duration(milliseconds: 1500),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 60,
+              ),
+    
+              StepCounterRadial(
+                  stepCount: _steps,
+                  maxSteps: goalSteps,
+                  circularThingySize: circularThingySize,
+                  delay: const Duration(milliseconds: 4000),
+                  strokeSize: 20),
+    
+              SizedBox(height: 20,),
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                           width: 100,
+                            decoration: BoxDecoration(
+                            color: Colors.greenAccent,
+                            borderRadius:BorderRadius.circular(20),
+                              
+                            ),
+                            child: IconButton(
+                              
+                              icon: Icon(Icons.emoji_events),
+                              onPressed: (){
+    
+                              },
+                            ),
+                            
+                      ),
+    
+                      SizedBox(width: 150,),
+                      FloatingActionButton(
+                            
+                        child:Icon(Icons.add,size: 40,),
+                            
+                        onPressed:(){
+                            Map<String,int> goals={
+                            "goals":_steps,
+                        };
+                            
+                          Goals.doc(uid).set(goals);
+                          
+                          final snackBar = SnackBar(
+                            content: Text('Congratulations You have achieved your personal best'),
+                            action: SnackBarAction(
+                              label: '',
+                              onPressed: () {
+                                // Do something when the user presses the action button
+                              },
+                            ),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          
+                        },),
+                    ]
+                  ),
+                ),
+              )
+            ],
+          ),
+    
+          
         ),
-
         
       ),
-   
     );
   }
 }
@@ -342,35 +434,23 @@ class _AppDrawerState extends State<AppDrawer> {
                   ),
                 ),
               ),
-              ListTile(
-                leading: Icon(Icons.refresh),
-                title: Text("Randomize Values"),
-                onTap: () {
-                  _homePageKey.currentState?.setState(() {
-                    _homePageKey.currentState?.calories =
-                        rand.nextInt(1000) * 1.0;
-                    _homePageKey.currentState?.activeTimeInSeconds =
-                        rand.nextInt(1000) * 1.0;
-                    _homePageKey.currentState?.distance =
-                        rand.nextInt(100) * 1.0;
-                  });
-                },
-              ),
+              // ListTile(
+              //   leading: Icon(Icons.refresh),
+              //   title: Text("Randomize Values"),
+              //   onTap: () {
+              //     _homePageKey.currentState?.setState(() {
+              //       _homePageKey.currentState?.calories =
+              //           rand.nextInt(1000) * 1.0;
+              //       _homePageKey.currentState?.activeTimeInSeconds =
+              //           rand.nextInt(1000) * 1.0;
+              //       _homePageKey.currentState?.distance =
+              //           rand.nextInt(100) * 1.0;
+              //     });
+              //   },
+              // ),
             ],
           ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text("Concept App by Robi @ github.com/RobiFox",
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodySmall)),
-            ),
-          ),
+          
         ],
       ),
     );

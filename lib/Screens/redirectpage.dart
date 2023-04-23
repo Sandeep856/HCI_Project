@@ -7,7 +7,7 @@ import 'package:hci_project/Screens/MainMenu.dart';
 import 'package:hci_project/Screens/Onboarding.dart';
 import 'package:hci_project/Screens/auth.dart';
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);//5.54
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,11 @@ class MainPage extends StatelessWidget {
               if (documentSnapshot.exists) {
                 print("Hello Sandeep");
                 print('Document exists on the database');
+                // CircularProgressIndicator(
+                //   color: Colors.blue,
+                //   strokeWidth: 2,
+                //   valueColor:Colors.blue as Animation<Color>,
+                // );
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>MainMenu()));
               } else {
                 print('Document doesn\'t exist');

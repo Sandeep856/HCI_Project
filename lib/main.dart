@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: kBackgroundColour,
         platform: TargetPlatform.iOS,
       ),
-      home: MainPage() ,
+      home: MainPage(),
     );
   }
 }

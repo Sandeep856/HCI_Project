@@ -34,6 +34,7 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 212, 143, 255),
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(

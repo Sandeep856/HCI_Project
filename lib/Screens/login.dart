@@ -76,7 +76,7 @@ Future<void> _alertDialogBuilder(String error) async {
     _passwordController.dispose();
     super.dispose();
   }
-
+  final _scrollController = ScrollController();
   //UI
   @override
   Widget build(BuildContext context) {
@@ -90,116 +90,134 @@ Future<void> _alertDialogBuilder(String error) async {
         ),
       ),
       child: Scaffold(
+        
+        resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,
           body: SafeArea(
-              child: Center(
-            child: Column(
-              //bu wrap yazı yazmak istedğimizde klavye çıakrken ekran bozulmasınd iye
-              children: [
-                SizedBox(height: 20,),
-                Text('TASK.LY',
-                  style: TextStyle(
-                      fontFamily: "Bebas",
-                      fontSize: 30,
-                      letterSpacing: 5,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,)),
-
-              // LOGIN - email
-
-              SizedBox(height: 380),
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(17)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: TextField(
-                      controller: _emailController,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Email',
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 40),
+                  child: Column(
+                    //bu wrap yazı yazmak istedğimizde klavye çıakrken ekran bozulmasınd iye
+                    children: [
+                      SizedBox(height: 20,),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 80),
+                          child: Text('PERSONAL ACTIVITY MANAGER',
+                            style: TextStyle(
+                                fontFamily: "Bebas",
+                                fontSize: 30,
+                                letterSpacing: 5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,)),
+                        ),
+                      ),
+                              
+                    // LOGIN - email
+                              
+                    SizedBox(height: 380),
+                              
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(17)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: TextField(
+                            onChanged: (value) => {
+                                  _scrollController.animateTo(
+                                  _scrollController.position.maxScrollExtent,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut,
+                                ),
+                            },
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Email',
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-
-              SizedBox(height: 20),
-
-              // LOGIN - Password
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black),
-                      borderRadius: BorderRadius.circular(17)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: TextField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Password',
+                              
+                    SizedBox(height: 25),
+                              
+                    // LOGIN - Password
+                              
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(17)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: TextField(
+                            controller: _passwordController,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Password',
+                            ),
+                          ),
+                        ),
                       ),
                     ),
+                              
+                    SizedBox(height: 20),
+                              
+                    // LOGIN - SIGNIN
+                              
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: _Login,
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: 18, bottom: 18, right: 50, left: 50),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 33, 71, 102),
+                                borderRadius: BorderRadius.circular(17)),
+                            child: Center(
+                                child: Text('Sign In',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15))),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>Account()));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: 18, bottom: 18, right: 50, left: 50),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 33, 71, 102),
+                                borderRadius: BorderRadius.circular(17)),
+                            child: Center(
+                                child: Text('Sign Up',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15))),
+                          ),
+                        ),
+                        
+                      ],
+                    ),]
                   ),
                 ),
-              ),
-
-              SizedBox(height: 20),
-
-              // LOGIN - SIGNIN
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: _Login,
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          top: 18, bottom: 18, right: 40, left: 55),
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 33, 71, 102),
-                          borderRadius: BorderRadius.circular(17)),
-                      child: Center(
-                          child: Text('Sign In',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15))),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Account()));
-                    },
-                    child: Container(
-                      padding: EdgeInsets.only(
-                          top: 18, bottom: 18, right: 40, left: 55),
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 33, 71, 102),
-                          borderRadius: BorderRadius.circular(17)),
-                      child: Center(
-                          child: Text('Sign Up',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15))),
-                    ),
-                  ),
-                  
-                ],
-              ),]
-            ),
-          ))),
+              ))),
     );
   }
 }

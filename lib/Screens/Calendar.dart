@@ -87,19 +87,42 @@ class _Calendar extends State<Calendar> {
     });
   }
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 231, 192, 255),
+        title: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Center(
+                    child: Text(
+                      'Calendar',
+                      style: kTitleTextStyle,
+                    ),
+                  ),
+                ),
+          automaticallyImplyLeading: false,
+      ),
+
+      backgroundColor: Colors.teal[100],
+      floatingActionButton: FloatingActionButton(
+        elevation: 3,
+        mouseCursor: MaterialStateMouseCursor.clickable,
+        child:Icon(Icons.add),
+        onPressed: (){
+          Navigator.push(context,
+                      MaterialPageRoute(
+                        builder: (context) => TaskInputScreen(),
+                      ),
+                    );
+    },
+      ),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'Calendar',
-                    style: kTitleTextStyle,
-                  ),
-                ),
+               
+
+                SizedBox(height: 20,),
                 CalendarTimeline(
                   showYears: true,
                   initialDate: _selectedDate,
@@ -141,20 +164,7 @@ class _Calendar extends State<Calendar> {
                         refreshTask();
                       },
                     ),
-                    IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.plus,
-                        size: 20,
-                        color: Color.fromRGBO(16, 16, 16, 1.0),
-                      ),
-                      onPressed: (){
-                        Navigator.push(context,
-                          MaterialPageRoute(
-                            builder: (context) => TaskInputScreen(),
-                          ),
-                        );
-                      },
-                    ),
+                    
                   ],
                 ),
                 if(tasks.isNotEmpty)
