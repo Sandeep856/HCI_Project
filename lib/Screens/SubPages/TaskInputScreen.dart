@@ -1,15 +1,12 @@
-// @dart=2.9
+
 import 'package:flutter/material.dart';
 import 'package:hci_project/Models/Task.dart';
 import 'package:hci_project/Screens/MainMenu.dart';
 import 'package:hci_project/Services/Task_Database.dart';
-import 'package:hci_project/Services/ad_helper.dart';
+
 import 'package:hci_project/Widgets/reusable_card.dart';
 import 'package:hci_project/constants.dart';
 
-import 'dart:convert';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_hsvcolor_picker/flutter_hsvcolor_picker.dart';
@@ -28,16 +25,17 @@ class _TaskInputScreen extends State<TaskInputScreen> {
   final taskController = TextEditingController();
   final desciptionController = TextEditingController();
   final goalController = TextEditingController();
-
-  String category;
-  String taskName;
-  String description;
+  final priorityController=TextEditingController();
+  late String category;
+  late String taskName;
+  late String description;
+  String priority="high";
   Color currentColor = Color.fromRGBO(238, 153, 23, 1.0);
   List<String> TaskList = [];
   Map<String, int> TaskGoal = {};
   DateTime taskDate = DateTime.now();
   TimeOfDay _startTime = TimeOfDay.now();
-
+  String groupValue="priority";
   //TimeOfDay _endTime = TimeOfDay.now();
 
   final _formKey = GlobalKey<FormState>();
@@ -69,7 +67,9 @@ class _TaskInputScreen extends State<TaskInputScreen> {
         Description: description,
         colour: currentColor,
         startTime: _startTime,
-        goals: TaskGoal.toString() //TaskList.toString()
+        goals: TaskGoal.toString(),
+        priority: priority.toString(),
+         //TaskList.toString()
         );
 
     await TaskDatabase.instance.create(task);
@@ -146,7 +146,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
   }
 
   void _selectStartTime() async {
-    final TimeOfDay newTime = await showTimePicker(
+    final TimeOfDay? newTime = await showTimePicker(
       context: context,
       initialTime: _startTime,
     );
@@ -174,7 +174,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
         showAlert('Invalid Time!',
             'Start time should not be the earlier than current time ');
       } else {
-        if (_formKey.currentState.validate()) {
+        if (_formKey.currentState!.validate()) {
           if (TaskList.isNotEmpty) {
             category = categoryController.text;
             taskName = taskController.text;
@@ -218,7 +218,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text(
             'Date: ' +
@@ -255,7 +255,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
           radius: Radius.circular(20),
           thickness: 5,
           interactive: true,
-          isAlwaysShown: true,
+          thumbVisibility: true,
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: ConstrainedBox(
@@ -452,6 +452,149 @@ class _TaskInputScreen extends State<TaskInputScreen> {
                         ),
                       ),
                       Padding(
+                        padding: const EdgeInsets.fromLTRB(25, 20, 20, 10),
+                        child: Text("Priority: set the priority of your task",
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        ),
+                      ),
+                      // RadioListTile(
+                      //   selected: true,
+                      //    title:Text("High",style:TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Color.fromRGBO(0, 0, 0, 0.4),
+                      //   )),
+                      //   value: "High", 
+                      //   groupValue: groupValue, 
+                      //   onChanged:(value)
+                      //   {
+                      // setState(() {
+                      //   groupValue=value as String;
+                      //   priority=value;
+                      // });
+                      //   }),
+                      // RadioListTile(
+                      //    title:Text("Medium",style:TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Color.fromRGBO(0, 0, 0, 0.4),
+                      //   )),
+                      //   value: "Medium", 
+                      //   toggleable: true,
+                      //   groupValue: groupValue, 
+                      //   onChanged:(value)
+                      //   {
+                      // setState(() {
+                      //   groupValue=value as String;
+                      //   priority=value;
+                      // });
+                      //   }),
+                      // RadioListTile(
+                      //   selectedTileColor:Colors.blue,
+                      //   autofocus: true,
+                      //   title:Text("Low",style:TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Color.fromRGBO(0, 0, 0, 0.4),
+                      //   )),
+                      //   value: "Low", 
+                      //   groupValue: groupValue, 
+                      //   onChanged:(value)
+                      //   {
+                      // setState(() {
+                      //   groupValue=value as String ;
+                      //   priority=value;
+                      // });
+                      //   }),
+                    SizedBox(height: 20,),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints.expand(height: 30, width: MediaQuery.of(context).size.width),
+                        child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        children: [
+                          GestureDetector(
+                            onTap: ()
+                            {
+                                 setState(() {
+                                   priority="High";
+                                 });
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 70,
+                              decoration: BoxDecoration(
+
+                                border: Border.all(),
+                                color: priority=="High"?Colors.red:Colors.transparent,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(child: Text("High",
+                              style: TextStyle(
+                                color: priority=="High"?Colors.white:Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              )),
+                            ),
+                          ),
+                              SizedBox(width: 50,),
+                             GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  priority="Medium";
+                                });
+                              },
+                               child: Container(
+                                                         height: 40,
+                                                         width: 70,
+                                                         decoration: BoxDecoration(
+                                border: Border.all(),
+                                color: priority=="Medium"?Colors.yellow:Colors.transparent,
+                                borderRadius: BorderRadius.circular(15),
+                                                         ),
+                                                         child: Center(child: Text("Medium",
+                                                         style: TextStyle(
+                                color: priority=="Medium"?Colors.white:Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                                         ),
+                                                         )),
+                                                       ),
+                             ),
+                          SizedBox(width: 50,),
+                          GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                priority="Low";
+                              });
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                border: Border.all(),
+                                color: priority=="Low"?Colors.green:Colors.transparent,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Center(child: Text("Low",
+                              style: TextStyle(
+                                color: priority=="Low"?Colors.white:Colors.black,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              )),
+                            ),
+                          ),
+                        ],
+                                            ),
+                      ),
+                    ),
+                      
+                      Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -470,6 +613,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
                                         height: 300,
                                         width: 300,
                                         child: SingleChildScrollView(
+
                                           child: Column(
                                             mainAxisSize:
                                             MainAxisSize.max,
@@ -490,7 +634,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
                                                     if (value == null) {
                                                       taskDate = DateTime.now();
                                                     } else {
-                                                      taskDate = value;
+                                                      taskDate = value as DateTime;
                                                     }
                                                   });
                                                   print(value);
@@ -557,6 +701,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
                           ],
                         ),
                       ),
+                      
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 10, 10, 5),
                         child: Form(
@@ -592,7 +737,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
                               ),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  Icons.abc,
+                                  Icons.plus_one,
                                   size: 20,
                                   color: Color.fromRGBO(0, 0, 0, 0.4),
                                 ),
@@ -600,7 +745,7 @@ class _TaskInputScreen extends State<TaskInputScreen> {
                                   setState(() {
                                     if (goalController.text.isEmpty) {
                                     } else if (_formKey2.currentState
-                                        .validate()) {
+                                        !.validate()) {
                                       TaskGoal[goalController.text.trim()] = 0;
                                       TaskList.add(goalController.text.trim());
                                       goalController.clear();

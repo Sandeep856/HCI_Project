@@ -1,19 +1,15 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hci_project/Models/pomodoro_status.dart';
-import 'package:hci_project/Services/ad_helper.dart';
 import 'package:hci_project/Widgets/custom_button.dart';
 import 'package:hci_project/Widgets/progress_icons.dart';
 import 'package:hci_project/constants.dart';
-import 'package:hci_project/main.dart';
+
 import 'dart:async';
-import 'dart:math';
+
 
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -166,12 +162,17 @@ class _Pomodoro extends State<Pomodoro> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      SizedBox(height: 20,),
+                      ProgressIcons(
+                            total: pomodoroPerSet,
+                            done: pomodoroNum - (setNum * pomodoroPerSet),
+                          ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CircularPercentIndicator(
-                            radius: 260.0,
-                            lineWidth: 18.0,
+                            radius: 175.0,
+                            lineWidth: 12.0,
                             percent: _getPomodoroPercentage(),
                             circularStrokeCap: CircularStrokeCap.round,
                             center: Container(
@@ -180,7 +181,7 @@ class _Pomodoro extends State<Pomodoro> {
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: 85,
+                                    height: 150,
                                   ),
                                   Text(
                                     _secondsToFormatedString(remainingTime),
@@ -201,13 +202,6 @@ class _Pomodoro extends State<Pomodoro> {
                               ),
                             ),
                             progressColor: statusColor[pomodoroStatus],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ProgressIcons(
-                            total: pomodoroPerSet,
-                            done: pomodoroNum - (setNum * pomodoroPerSet),
                           ),
                           SizedBox(
                             height: 10,
@@ -342,14 +336,14 @@ class _Pomodoro extends State<Pomodoro> {
                     mainBtnText = _btnTextStartLongBreak;
                     alertTxt = _alertLongBreak;
                   }),
-                  soundAlarm(),
+                  //soundAlarm(),
                   setState(() {
                     alertTxt = _alertLongBreakDone;
                   })
                 }
               else
                 {
-                  soundAlarm(),
+                  //soundAlarm(),
                   pomodoroStatus = PomodoroStatus.pausedShortBreak,
                   setState(() {
                     remainingTime = shortBreakTime;
@@ -378,7 +372,7 @@ class _Pomodoro extends State<Pomodoro> {
             }
           else
             {
-              soundAlarm(),
+              //soundAlarm(),
               remainingTime = pomodoroTotalTime,
               _cancelTimer(),
               pomodoroStatus = PomodoroStatus.pausedPomodoro,
@@ -407,7 +401,7 @@ class _Pomodoro extends State<Pomodoro> {
             }
           else
             {
-              soundAlarm(),
+              //soundAlarm(),
               remainingTime = pomodoroTotalTime,
               _cancelTimer(),
               pomodoroStatus = PomodoroStatus.setFinished,
@@ -466,27 +460,28 @@ class _Pomodoro extends State<Pomodoro> {
     }
   }
 
-  void soundAlarm() async {
+//   void soundAlarm() async {
 
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'channelId',
-      'channelName',
-      'channelDescription',
-      onlyAlertOnce: false,
-      enableVibration: true,
-      playSound: true,
-      sound: RawResourceAndroidNotificationSound('notif'),
-      largeIcon: DrawableResourceAndroidBitmap('taskly2'),
+//     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+//       'channelId',
+//       'channelName',
+//       'channelDescription',
+//       onlyAlertOnce: false,
+//       enableVibration: true,
+//       playSound: true,
+//       sound: RawResourceAndroidNotificationSound('notif'),
+//       largeIcon: DrawableResourceAndroidBitmap('taskly2'),
 
-    );
+//     );
 
-    var iOSPlatformChannelSpecifics = IOSNotificationDetails(
-        presentAlert: true, presentBadge: true, presentSound: true);
-    var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+//     var iOSPlatformChannelSpecifics = IOSNotificationDetails(
+//         presentAlert: true, presentBadge: true, presentSound: true);
+//     var platformChannelSpecifics = NotificationDetails(
+//         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
 
-    DateTime time = DateTime.now();
-    await flutterLocalNotificationsPlugin.schedule(
-        0, 'Taskly', alertTxt, time, platformChannelSpecifics);
-  }
+//     DateTime time = DateTime.now();
+//     await flutterLocalNotificationsPlugin.schedule(
+//         0, 'Taskly', alertTxt, time, platformChannelSpecifics);
+//   }
+// }
 }

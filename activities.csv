@@ -1,0 +1,98 @@
+time_of_day,location,current_activity,next_activity
+7,hostel,sleep,breakfast
+8,hostel,sleep,breakfast
+9,hostel,sleep,breakfast
+10,hostel,free,lecture
+11,Bdome,lecture,lecture
+8,mess,breakfast,sleep
+9,mess,breakfast,lecture
+10,Bdome,lecture,lecture
+11,dside,lecture,free
+9,bdome,lecture,library
+12,Bdome,lecture,lunch
+12,hostel,study,lunch
+13,mess,lunch,free
+13,mess,lunch,free
+13,mess,lunch,class
+14,hostel,sleep,study
+14,hostel,sleep,study
+15,Bdome,lecture,sleep
+16,dside,lecture,study
+16,dside,lecture,study
+17,hostel,study,study
+17,hostel,study,study
+17,hostel,free,gym
+18,SAC,gym,running
+18,hostel,study,gym
+18,hostel,free,gym
+19,SAC,gym,running
+19,SAC,gym,running
+19,ground,running,dinner
+19,hostel,study,study
+20,mess,dinner,walk
+20,mess,dinner,walk
+20,mess,dinner,study
+20,hostel,study,dinner
+21,hostel,study,library
+21,hostel,free,free
+21,hostel,study,study
+22,library,study,study
+22,library,study,study
+23,hostel,free,sleep
+23,hostel,study,study
+0,hostel,study,sleep
+1,hostel,sleep,sleep
+2,hostel,sleep,sleep
+3,hostel,sleep,sleep
+4,hostel,sleep,sleep
+5,hostel,sleep,sleep
+6,hostel,sleep,sleep
+7,hostel,sleep,breakfast
+6,Hostel,sleep,sleep
+7,Hostel,sleep,breakfast
+8,Mess,breakfast,class
+9,Class,study,break
+10,Class,study,break
+11,Class,lunch,group project meeting
+12,Class,group project meeting,class
+13,Class,study,break
+14,Library,study,break
+15,Library,study,break
+16,Gym,workout,shower
+17,Gym,shower,dinner
+18,Mess,dinner,study group
+19,Study group,study,break
+20,Study group,study,break
+21,Library,study,break
+22,Hostel,study,sleep
+23,Hostel,sleep,sleep
+0,Hostel,sleep,sleep
+1,Hostel,sleep,sleep
+2,Hostel,sleep,sleep
+3,Hostel,sleep,sleep
+4,Hostel,sleep,sleep
+5,Hostel,sleep,sleep
+6,Hostel,sleep,breakfast
+7,Mess,breakfast,class
+8,Class,study,break
+9,Class,study,break
+10,Class,lunch,study
+11,Class,study,class
+12,Class,study,lunch
+13,Mess,lunch,group project meeting
+14,Class,group project meeting,study
+15,Library,study,break
+16,Library,study,break
+17,Gym,workout,shower
+18,Gym,shower,dinner
+19,Mess,dinner,study group
+20,Study group,study,break
+21,Study group,study,break
+22,Library,study,break
+23,Hostel,study,sleep
+0,Hostel,sleep,sleep
+1,Hostel,sleep,sleep
+2,Hostel,sleep,sleep
+3,Hostel,sleep,sleep
+4,Hostel,sleep,sleep
+5,Hostel,sleep,sleep

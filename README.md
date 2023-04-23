@@ -1,16 +1,7 @@
 # hci_project
 
-A new Flutter project.
 
-## Getting Started
+This is a personal Activity Management Application which has Task Scheduling system, pedometer, calorie tracker and pomodoro. 
+PAM also enables notifications to be sent to user at defined timings of meals and exercise that will be set by user.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This repo contains a jupyter notebook which implements basic model involving algorithms like random forest classifier, logistic regression and SVM. It uses label encoder to convert mapping from string to integer. It makes use of stratified sampling techniques to compare results among the three above mentioned algorithm.

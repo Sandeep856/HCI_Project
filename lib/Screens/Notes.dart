@@ -34,7 +34,7 @@ class _Notes extends State<Notes> {
   Future refreshNotes() async {
     setState(() => isLoading = true);
 
-    this.notes = await NotesDatabase.instance.readAllNotes() as List<Note>;
+    this.notes = await NotesDatabase.instance.readAllNotes();
 
     setState(() => isLoading = false);
   }
@@ -44,6 +44,7 @@ class _Notes extends State<Notes> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 231, 192, 255),
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Text(
@@ -59,7 +60,7 @@ class _Notes extends State<Notes> {
               )
             : notes.isEmpty
                 ? Text(
-                    'No Notes',
+                    'Please enter your notes here',
                     style: TextStyle(color: Color(0xff83c5be), fontSize: 24),
                   )
                 : buildNotes(),

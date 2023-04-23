@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
-
 class ReusableCardTaskDisplay extends StatelessWidget {
   ReusableCardTaskDisplay(
       {required this.colour, required this.cardChild, required this.onPress});

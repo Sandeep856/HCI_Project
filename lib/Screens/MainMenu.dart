@@ -11,10 +11,10 @@ import 'package:hci_project/Screens/Calendar.dart';
 import 'package:hci_project/Screens/Fit.dart';
 import 'package:hci_project/Screens/Notes.dart';
 import 'package:hci_project/Screens/Pomodoro.dart';
-import 'package:hci_project/Services/ad_helper.dart';
 import 'package:hci_project/constants.dart';
 
 
+// ignore: must_be_immutable
 class MainMenu extends StatefulWidget {
     MainMenu({this.pageIndex1});
   int? pageIndex1;
@@ -26,7 +26,8 @@ class _MainMenuState extends State<MainMenu> {
   int pageIndex = 1;
   List<Widget> pagelist = <Widget>[
     //Home(),
-    Fit(),
+    //dashboard(),
+    MyHomePage(title: "Fit"),
     Notes(),
     Calendar(),
     Pomodoro(),
@@ -35,7 +36,7 @@ class _MainMenuState extends State<MainMenu> {
   
 
   // TODO: Add _isBannerAdReady
-  bool _isBannerAdReady = false;
+  //bool _isBannerAdReady = false;
 
   @override
   void initState() {

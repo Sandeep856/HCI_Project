@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hci_project/Models/Note.dart';
 import 'package:hci_project/Services/Notes_Database.dart';
-import 'package:hci_project/Services/ad_helper.dart';
 import 'package:hci_project/Widgets/note_form_widget.dart';
 import 'package:hci_project/constants.dart';
 
@@ -157,9 +156,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          onPrimary: kNotesFormSaveFontColor,
-          primary:
-              isFormValid ? kNotesFormSaveColor : kNotesFormSaveInvalidColor,
+          foregroundColor: kNotesFormSaveFontColor, backgroundColor: isFormValid ? kNotesFormSaveColor : kNotesFormSaveInvalidColor,
         ),
         onPressed: addOrUpdateNote,
         child: Text(
